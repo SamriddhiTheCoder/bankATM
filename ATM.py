@@ -1,17 +1,31 @@
 class atm(object):
-    def __init__(self, card_no, pin_no):
+    def __init__(self, card_no, pin_no, bal):
         self.card_no = card_no
         self.pin_no = pin_no
+        self.bal = bal
+        self.newamt = 0
 
     def CashWithdrawl(self):
-        amount = input("Enter the amount: ")
-        print("You withdrawed ₹" + amount + " from the bank!")
+        amount = int(input("Enter the amount: "))
+        self.newamt = self.bal - amount
+        print("You have ₹" + str(self.newamt) + " left in your account!")
 
     def BalanceEnquiry(self):
-        print("You have ₹___ in your bank account.")
+        if(self.newamt == 0):
+            print("You have ₹" + str(self.bal) + " in your bank account.")
+        else: 
+            print("You have ₹" + str(self.newamt) + " in your bank account.")
 
-atm_1 = atm(12345678, 4321)
-atm_2 = atm(87654321, 1234)
+def main():
+    user = atm(12345678, 4321, 20000)
+    print("Choose an activity") 
+    print("1) Balance Enquiry. 2) Cash Withdrawl.")
+    act = int(input("Enter activity number: "))
 
-print(atm_1.CashWithdrawl())
-print(atm_2.BalanceEnquiry())
+    if(act == 1):
+        user.BalanceEnquiry()
+    elif(act == 2):
+        user.CashWithdrawl()
+    else:
+        print("Invalid.")
+main()
